@@ -1,3 +1,3 @@
 # Golang Snippets
 
-This repo contains a collations of useful programs.
+This repo contains a collation of useful programs.
