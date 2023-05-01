@@ -7,7 +7,7 @@ func Remove(slice []int, i int) []int {
 	return slice[:len(slice)-1]
 }
 
-func slMain() {
+func SlMain() {
 	s := []int{5, 6, 7, 8, 9}
 	fmt.Println(Remove(s, 2))
 }
