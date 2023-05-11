@@ -41,7 +41,7 @@ var multiply = func (ctx context.Context, valueStream <-chan any, multiplier int
 	return  multipliedStream
 }
 
-var add = func (ctx context.Context, valueStream <-chan any, additive int) <-chan any {
+var newadd = func (ctx context.Context, valueStream <-chan any, additive int) <-chan any {
 	time.Sleep(200 * time.Millisecond)
 	addedStream := make(chan any)
 
@@ -62,9 +62,10 @@ var add = func (ctx context.Context, valueStream <-chan any, additive int) <-cha
 func CtxPipeMain()  {
 	ctx := context.Background()
 	ctx, cancel := context.WithDeadline(ctx, time.Now().Add(300 * time.Millisecond))
+	defer cancel()
 	// ctx, cancel :=context.WithTimeout(ctx, 300 * time.Millisecond)
 	
-	for v := range multiply(ctx,add(ctx,multiply(ctx, gen(ctx, 1,2,3,4,5), 2), 1), 2){
+	for v := range multiply(ctx,newadd(ctx,multiply(ctx, gen(ctx, 1,2,3,4,5), 2), 1), 2){
 		fmt.Println(v)
 	}
 	
