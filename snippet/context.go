@@ -54,6 +54,7 @@ func ContextMain() {
 		}
 	}()
 
+	wg.Add(1)
 	go func() {
 		defer wg.Done()
 
@@ -108,7 +109,7 @@ func genFarewell(ctx context.Context) (string, error) {
 
 func locale(ctx context.Context) (string, error) {
 	if deadline, ok := ctx.Deadline(); ok {
-		if deadline.Sub(time.Now().Add(1 * time.Minute)) <= 0 {
+		if time.Until(deadline) <= 0 {
 			return "", context.DeadlineExceeded
 		}
 	}
@@ -116,7 +117,7 @@ func locale(ctx context.Context) (string, error) {
 	select {
 	case <-ctx.Done():
 		return "", ctx.Err()
-	case <-time.After(1 * time.Minute):
+	case <-time.After(50 * time.Millisecond):
 	}
 	return "EN/US", nil
 }
