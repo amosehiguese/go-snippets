@@ -2,11 +2,17 @@ package snippet
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"io"
 	"log"
 	"os"
 	"path/filepath"
+)
+
+var (
+	ErrFileNotFound 	= errors.New("file not found")
+	ErrCannotLoadFile =	errors.New("unable to load file")
 )
 
 type File interface {
