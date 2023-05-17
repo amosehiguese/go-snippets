@@ -51,7 +51,7 @@ func XMlmain() {
 		switch se := t.(type) {
 		case xml.StartElement:
 			if se.Name.Local == "comment" {
-				var comment xml.Comment
+				var comment Comment
 				decoder.DecodeElement(&comment, &se)
 				fmt.Println(se)
 			}
